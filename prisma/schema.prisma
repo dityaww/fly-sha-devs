@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 // prisma/schema.prisma
@@ -41,6 +40,14 @@ model User {
   passport    String?
   role        RoleUser
   tickets     Ticket[]
+  sessions    Session[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model Airplane {
